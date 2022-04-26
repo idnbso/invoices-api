@@ -4,13 +4,13 @@ import { Model } from "mongoose";
 import { InvoiceDTO } from "./invoice.dto";
 import { Invoice, InvoiceDocument } from "./invoice.schema";
 import { parse } from "json2csv";
-import * as fs from 'fs';
-import { promisify } from 'util';
+import { FilesService } from "src/infrastructure/files.service";
 
 @Injectable()
 export class InvoiceService {
 
-    constructor(@InjectModel(Invoice.name) private invoiceModel: Model<InvoiceDocument>) { }
+    constructor(@InjectModel(Invoice.name) private invoiceModel: Model<InvoiceDocument>,
+        private filesService: FilesService) { }
 
     async readAll(): Promise<InvoiceDTO[]> {
         const invoices = await this.invoiceModel.find().exec();
@@ -47,16 +47,6 @@ export class InvoiceService {
         const filePath = 'public';
         const fileName = 'invoices.csv';
 
-        await this.createFile(filePath, fileName, csv);
-    }
-
-    async createFile(path: string, fileName: string, data: string): Promise<void> {
-        if (!fs.existsSync(path)) {
-            fs.mkdirSync(path);
-        }
-
-        const writeFile = promisify(fs.writeFile);
-
-        return await writeFile(`${path}/${fileName}`, data, 'utf8');
+        await this.filesService.createFile(filePath, fileName, csv);
     }
 }

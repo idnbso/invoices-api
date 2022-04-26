@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { AppController } from './app.controller';
+import { FilesService } from './infrastructure/files.service';
 import { Invoice, InvoiceSchema } from './invoice/invoice.schema';
 import { InvoiceService } from './invoice/invoice.service';
 
@@ -12,6 +11,6 @@ import { InvoiceService } from './invoice/invoice.service';
     MongooseModule.forFeature([{ name: Invoice.name, schema: InvoiceSchema }])
   ],
   controllers: [AppController],
-  providers: [InvoiceService],
+  providers: [InvoiceService, FilesService]
 })
 export class AppModule { }
