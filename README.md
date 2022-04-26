@@ -24,13 +24,22 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Invoices api to fetch json and csv data.
 
 ## Installation
 
+1. Setup a local MongoDB database named 'gaviti'.
+2. Run:
 ```bash
 $ npm install
 ```
+
+3. Access http://localhost:3000/invoices to create the 'invoices' collection automatically by mongoose.
+4. Load same data.csv into the 'invoices' collection of the local MongoDB database named 'gaviti' with a tool such as MongoDB Compass.
+5. Access the following end points to get the data:
+  - http://localhost:3000/invoices
+  - http://localhost:3000/invoices/csv
+
 
 ## Running the app
 
@@ -57,17 +66,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
