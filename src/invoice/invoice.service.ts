@@ -4,7 +4,7 @@ import { Model } from "mongoose";
 import { InvoiceDTO } from "./invoice.dto";
 import { Invoice, InvoiceDocument } from "./invoice.schema";
 import { parse } from "json2csv";
-import { FilesService } from "src/infrastructure/files.service";
+import { FilesService } from "../infrastructure/files.service";
 
 @Injectable()
 export class InvoiceService {
