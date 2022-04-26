@@ -7,18 +7,19 @@ import { InvoiceService } from './invoice/invoice.service';
 export class AppController {
   constructor(private readonly invoiceService: InvoiceService) { }
 
-  @Get()
-  async fetchAll(@Res() response) {
-    const invoices = await this.invoiceService.readAll();
-    const dtos: InvoiceDTO[] = invoices.map(invoice => {
-      return {
-        createdAt: invoice.createdAt,
-        customerId: invoice.customerId,
-        invoiceId: invoice.invoiceId
-      }
-    });
+  @Get('invoices')
+  async fetchAllInvoices(@Res() response) {
+    const invoices: InvoiceDTO[] = await this.invoiceService.readAll();
+    
     return response.status(HttpStatus.OK).json({
-      invoices: dtos
+      invoices
     })
+  }
+
+  @Get('invoices/csv')
+  async getAllInvoicesCSV(@Res() res) {
+    await this.invoiceService.readAllToCSV();
+
+    return res.sendFile('invoices.csv', { root: './public' });
   }
 }
